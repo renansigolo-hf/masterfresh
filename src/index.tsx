@@ -1,12 +1,21 @@
+import { SCMTheme } from "@hellofresh/scm-design-system";
+import { createTheme, CssBaseline, ThemeProvider } from "@material-ui/core";
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import { ThemeProvider as StyledThemeProvider } from "styled-components";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+const customTheme = createTheme(SCMTheme);
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <StyledThemeProvider theme={customTheme}>
+      <ThemeProvider theme={customTheme}>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
+    </StyledThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
