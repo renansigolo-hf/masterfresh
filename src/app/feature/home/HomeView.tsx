@@ -1,5 +1,7 @@
-import { Button, Card, Divider } from "@hellofresh/scm-design-system";
+import { Button, Card, Divider, icons } from "@hellofresh/scm-design-system";
 import ReactLogo from "assets/logo.svg";
+
+const { Activation, BoxOrdered, DeliveryTruckMoving } = icons;
 
 export function HomeView() {
   return (
@@ -8,6 +10,10 @@ export function HomeView() {
       <p>Welcome to MasterFresh</p>
 
       <ReactLogo />
+
+      <Activation size="medium" />
+      <BoxOrdered state="active" />
+      <DeliveryTruckMoving />
 
       <Button color="primary" label="Learn React" variant="primary" />
 
