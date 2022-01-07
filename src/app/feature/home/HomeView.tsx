@@ -7,7 +7,12 @@ export function HomeView() {
       <p>Welcome to MasterFresh</p>
       <Button color="primary" label="Learn React" variant="primary" />
 
-      <Card image="https://dummyimage.com/640x295/fff/aaa" onSelect={() => {}}>
+      <Card
+        image="https://dummyimage.com/640x295/fff/aaa"
+        onSelect={() => {
+          console.log("onSelect");
+        }}
+      >
         {/* <TopContentExample /> */}
         <div>Top</div>
         <Divider />
@@ -16,7 +21,9 @@ export function HomeView() {
           color="primary"
           fullWidth
           label="Select Card"
-          onClick={function noRefCheck() {}}
+          onClick={function noRefCheck() {
+            console.log("onSelect");
+          }}
           variant="primary"
         />
       </Card>
