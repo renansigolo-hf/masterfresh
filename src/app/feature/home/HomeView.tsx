@@ -1,5 +1,5 @@
 import { Button, Card, Divider } from "@hellofresh/scm-design-system";
-// import Logo from "";
+import ReactLogo from "assets/logo.svg";
 
 export function HomeView() {
   return (
@@ -7,7 +7,7 @@ export function HomeView() {
       <br />
       <p>Welcome to MasterFresh</p>
 
-      <img src="assets/logo.svg" alt="Testing" />
+      <ReactLogo />
 
       <Button color="primary" label="Learn React" variant="primary" />
 
