@@ -1,4 +1,3 @@
-import React from "react";
 import { HomeView } from "./app/feature/home/HomeView";
 import { Layout } from "./app/layout/Layout";
 
