@@ -2,6 +2,15 @@
   "name": "masterfresh",
   "version": "0.1.0",
   "private": true,
+  "description": "FrontEnd for the MasterFresh app",
+  "homepage": "https://github.com/renansigolo-hf/masterfresh#readme",
+  "bugs": {
+    "url": "https:/github.com/renansigolo-hf/masterfresh/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renansigolo-hf/masterfresh.git"
+  },
   "scripts": {
     "clean": "rm -rf package-lock.json node_modules build .firebase",
     "build": "react-scripts build",
@@ -14,6 +23,7 @@
     "@material-ui/core": "4.12.3",
     "@material-ui/icons": "4.11.2",
     "@material-ui/lab": "4.0.0-alpha.60",
+    "esbuild": "^0.14.10",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "styled-components": "5.3.3",
