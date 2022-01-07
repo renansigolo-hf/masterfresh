@@ -1,18 +1,14 @@
-import { Button } from "@hellofresh/scm-design-system";
 import React from "react";
-import "./App.css";
-import logo from "./logo.svg";
+import { HomeView } from "./app/feature/home/HomeView";
+import { Layout } from "./app/layout/Layout";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <Button color="primary" label="Learn React" variant="primary" />
-      </header>
+      <header className="App-header"></header>
+      <Layout>
+        <HomeView />
+      </Layout>
     </div>
   );
 }
