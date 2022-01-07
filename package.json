@@ -15,6 +15,7 @@
     "clean": "rm -rf package-lock.json node_modules build .firebase",
     "build": "react-scripts build",
     "format": "prettier --write . --ignore-unknown",
+    "eject": "react-scripts eject",
     "start": "react-scripts start",
     "test": "react-scripts test"
   },
