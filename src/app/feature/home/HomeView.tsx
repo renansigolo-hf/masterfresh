@@ -1,10 +1,14 @@
 import { Button, Card, Divider } from "@hellofresh/scm-design-system";
+// import Logo from "";
 
 export function HomeView() {
   return (
-    <div className="App">
-      <h1>Ho sssme</h1>
+    <div>
+      <br />
       <p>Welcome to MasterFresh</p>
+
+      <img src="assets/logo.svg" alt="Testing" />
+
       <Button color="primary" label="Learn React" variant="primary" />
 
       <Card

@@ -1,5 +1,6 @@
 {
   "root": true,
+  "ignorePatterns": "webpack.config.js",
   "settings": {
     "react": {
       "version": "latest"
@@ -10,6 +11,7 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
+    "react-app",
     "prettier"
   ]
 }
