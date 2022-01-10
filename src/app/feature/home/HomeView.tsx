@@ -8,14 +8,12 @@ export function HomeView() {
       <br />
       <br />
       <br />
-      <p>Welcome to MasterFresh</p>
+      <h1>Welcome to MasterFresh</h1>
 
-      <Activation size="medium" />
-      <BoxOrdered state="active" />
-      <DeliveryTruckMoving />
+      <Button color="primary" label="Learn more" variant="primary" />
 
-      <Button color="primary" label="Learn React" variant="primary" />
-
+      <br />
+      <br />
       <Card
         image="https://dummyimage.com/640x295/fff/aaa"
         onSelect={() => {
@@ -36,6 +34,13 @@ export function HomeView() {
           variant="primary"
         />
       </Card>
+
+      <br />
+      <br />
+
+      <Activation size="medium" />
+      <BoxOrdered state="active" />
+      <DeliveryTruckMoving />
     </div>
   );
 }
