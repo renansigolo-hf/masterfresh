@@ -2,6 +2,7 @@ import { SCMTheme } from "@hellofresh/scm-design-system";
 import { createTheme, CssBaseline, ThemeProvider } from "@material-ui/core";
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider as StyledThemeProvider } from "styled-components";
 import App from "./App";
 
@@ -12,7 +13,9 @@ ReactDOM.render(
     <StyledThemeProvider theme={customTheme}>
       <ThemeProvider theme={customTheme}>
         <CssBaseline />
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </ThemeProvider>
     </StyledThemeProvider>
   </React.StrictMode>,
