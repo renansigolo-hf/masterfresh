@@ -6,9 +6,6 @@ const { Activation, BoxOrdered, DeliveryTruckMoving } = icons;
 export function HomeView() {
   return (
     <div>
-      <br />
-      <br />
-      <br />
       <h1>Welcome to MasterFresh</h1>
 
       <h2>Routes</h2>
