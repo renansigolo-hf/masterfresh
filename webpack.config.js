@@ -5,7 +5,7 @@ const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin"
 
 // Set node.env
 process.env.NODE_ENV = process.env.NODE_ENV ?? "development";
-console.log(`🧰 Running NODE_ENV in ${process.env.NODE_ENV.toUpperCase()}`);
+console.info(`🧰 Running NODE_ENV in ${process.env.NODE_ENV.toUpperCase()}`);
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
