@@ -1,9 +1,8 @@
 import { Button, Card, Divider, icons } from "@hellofresh/scm-design-system";
 import { Link } from "react-router-dom";
-import { environment } from "../../../environments/environment";
+import { environment } from "@environments/environment";
 
 const { Activation, BoxOrdered, DeliveryTruckMoving } = icons;
-const { production } = environment;
 
 export function HomeView() {
   return (
@@ -11,7 +10,7 @@ export function HomeView() {
       <h1>Welcome to MasterFresh</h1>
 
       <h2>Environment Variables</h2>
-      <p>Your env is {production ? "production" : "development"}</p>
+      <p>{JSON.stringify(environment)}</p>
 
       <h2>Routes</h2>
 

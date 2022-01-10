@@ -15,7 +15,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "paths": {
+      "@environments/*": ["./src/environments/*"]
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/@types/custom.d.ts"],
   "exclude": ["node_modules", "dist"]

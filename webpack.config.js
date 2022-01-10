@@ -40,8 +40,7 @@ module.exports = {
     extensions: [".json", ".ts", ".tsx", "..."],
     modules: ["node_modules", path.resolve(__dirname, "src")],
     alias: {
-      "@app": path.resolve(__dirname, "src/app/"),
-      "@environment": path.resolve(__dirname, "src/environments/"),
+      "@environments": path.resolve(__dirname, "src/environments/"),
     },
   },
   devtool: "inline-source-map",
