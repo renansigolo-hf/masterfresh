@@ -1,9 +1,9 @@
 // import Navbar from "./navbar";
 // import Footer from "./footer";
-import { AppBar, AppFooter } from "@hellofresh/scm-design-system";
+import { Container } from "@hellofresh/scm-design-system";
 import React from "react";
-
-// const { Ingredients, DeliveryTruckMoving } = icons;
+import { Footer } from "./Footer";
+import { Navbar } from "./Navbar";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -12,33 +12,13 @@ type LayoutProps = {
 export function Layout({ children }: LayoutProps) {
   return (
     <>
-      {/* <Navbar /> */}
-      <AppBar
-        // ref={null}
-        location={{
-          country: "au",
-          dc: "",
-          dcs: [],
-          parsedDcs: () => {
-            return [];
-          },
-          parsedCountries: () => {
-            return [{ value: "au", label: "Australia" }];
-          },
-        }}
-        onChangeLocation={function noRefCheck() {
-          console.log("onChangeLocation");
-        }}
-        onMenuClick={function noRefCheck() {
-          console.log("onMenuClick");
-        }}
-      />
+      <Navbar />
 
-      <main>{children}</main>
+      <Container maxWidth="lg">
+        <main>{children}</main>
+      </Container>
 
-      <div style={{ position: "fixed", bottom: 0, width: "100vw" }}>
-        <AppFooter version="0.0.1" menuItems={[]} />
-      </div>
+      <Footer />
     </>
   );
 }
