@@ -1,8 +1,10 @@
 const path = require("path");
 const { ProvidePlugin } = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 module.exports = {
+  mode: process.env.NODE_ENV || "development",
   entry: {
     app: "./src/index.tsx",
   },
@@ -27,11 +29,6 @@ module.exports = {
           },
         },
       },
-      {
-        test: /\.svg$/i,
-        issuer: /\.[jt]sx?$/,
-        use: ["@svgr/webpack"],
-      },
     ],
   },
   resolve: {
@@ -42,7 +39,6 @@ module.exports = {
     },
   },
   devtool: "inline-source-map",
-  mode: process.env.NODE_ENV || "development",
   devServer: {
     historyApiFallback: true,
     hot: true,
@@ -58,8 +54,11 @@ module.exports = {
     },
   },
   plugins: [
+    // enable Fast Refresh for React components
+    new ReactRefreshWebpackPlugin(),
+    // automatically import react where needed
     new ProvidePlugin({
-      React: "react", // automatically import react where needed
+      React: "react",
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
