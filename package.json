@@ -13,6 +13,8 @@
   },
   "scripts": {
     "clean": "rm -rf package-lock.json node_modules dist .firebase",
+    "build:development": "rm -rf dist && NODE_ENV=development webpack",
+    "build:production": "rm -rf dist && NODE_ENV=production webpack",
     "build": "rm -rf dist && webpack",
     "format": "prettier --write . --ignore-unknown",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",

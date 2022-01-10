@@ -1,11 +1,15 @@
 const path = require("path");
-const { ProvidePlugin } = require("webpack");
+const { ProvidePlugin, NormalModuleReplacementPlugin } = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
+// Set node.env
+process.env.NODE_ENV = process.env.NODE_ENV ?? "development";
+console.log(`🧰 Running NODE_ENV in ${process.env.NODE_ENV.toUpperCase()}`);
+
 /** @type {import('webpack').Configuration} */
 module.exports = {
-  mode: process.env.NODE_ENV || "development",
+  mode: process.env.NODE_ENV,
   entry: {
     app: "./src/index.tsx",
   },
@@ -37,6 +41,7 @@ module.exports = {
     modules: ["node_modules", path.resolve(__dirname, "src")],
     alias: {
       "@app": path.resolve(__dirname, "src/app/"),
+      "@environment": path.resolve(__dirname, "src/environments/"),
     },
   },
   devtool: "inline-source-map",
@@ -44,7 +49,7 @@ module.exports = {
     historyApiFallback: true,
     hot: true,
     open: true,
-    port: 8080,
+    port: 3000,
     static: {
       directory: path.join(__dirname, "dist"),
       publicPath: "/public",
@@ -61,6 +66,11 @@ module.exports = {
     new ProvidePlugin({
       React: "react",
     }),
+    // replace environment files in production
+    new NormalModuleReplacementPlugin(
+      /src\/environments\/environment\/environment\/.ts/,
+      "src/environments/environment.prod.ts"
+    ),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
       favicon: "./public/favicon.ico",
