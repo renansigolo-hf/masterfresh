@@ -6,8 +6,8 @@ import { Layout } from "./app/layout/Layout";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header"></header>
+    <div>
+      <header></header>
       <Layout>
         <Routes>
           <Route path="/" element={<HomeView />} />

@@ -14,7 +14,7 @@ export function Layout({ children }: LayoutProps) {
     <>
       <Navbar />
 
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" style={{ minHeight: "calc(100vh - 56px)" }}>
         <main>{children}</main>
       </Container>
 
