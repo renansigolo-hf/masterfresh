@@ -1,10 +1,19 @@
-import { Button, Card, Divider, icons } from "@hellofresh/scm-design-system";
+import {
+  Button,
+  Card,
+  Divider,
+  Dropdown,
+  icons,
+} from "@hellofresh/scm-design-system";
 import { Link } from "react-router-dom";
 import { environment } from "@environments/environment";
+import { useState } from "react";
 
 const { Activation, BoxOrdered, DeliveryTruckMoving } = icons;
 
 export function HomeView() {
+  const [dropdownValue, setDropdownValue] = useState();
+
   return (
     <div>
       <h1>Welcome to MasterFresh</h1>
@@ -26,6 +35,43 @@ export function HomeView() {
       <br />
       <br />
       <h2>Components</h2>
+      <div>
+        <Dropdown
+          id="simple"
+          label="Simple"
+          value={dropdownValue}
+          onBlur={function noRefCheck() {
+            return;
+          }}
+          onChange={({ value }) => {
+            const dropValue: any = value;
+            setDropdownValue(dropValue);
+          }}
+          options={[
+            {
+              label: "Last 2 days",
+              value: "2",
+            },
+            {
+              label: "Last 1 week",
+              value: "7",
+            },
+            {
+              label: "Last 2 week",
+              value: "14",
+            },
+            {
+              label: "Last 1 Month",
+              value: "30",
+            },
+            {
+              label: "Last 2 Month",
+              value: "60",
+            },
+          ]}
+          placeholder="My Placeholder text"
+        />
+      </div>
       <Card
         image="https://dummyimage.com/640x295/fff/aaa"
         onSelect={() => {

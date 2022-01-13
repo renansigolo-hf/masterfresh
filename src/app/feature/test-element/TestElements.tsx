@@ -1,5 +1,13 @@
-// import { Button } from "@hellofresh/scm-design-system";
+import { createTheme } from "@material-ui/core";
 import React from "react";
+
+import { Button, SCMTheme } from "@hellofresh/scm-design-system";
+import { ThemeProvider as StyledThemeProvider } from "styled-components";
+const scopedTheme = createTheme(SCMTheme);
+
+<StyledThemeProvider theme={scopedTheme}>
+  <Button color="primary" label="Go to login" variant="primary" />
+</StyledThemeProvider>;
 
 const TestElements = () => {
   const [counter, setCounter] = React.useState(0);
@@ -19,7 +27,9 @@ const TestElements = () => {
         Down
       </button>
 
-      {/* <Button color="primary" label="Go to login" variant="primary" /> */}
+      <StyledThemeProvider theme={scopedTheme}>
+        <Button color="primary" label="Go to login" variant="primary" />
+      </StyledThemeProvider>
     </>
   );
 };
