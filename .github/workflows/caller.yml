@@ -7,7 +7,7 @@ on:
 
 jobs:
   call-workflow:
-    uses: ./.github/workflows/workflow-A.yml@v1
+    uses: renansigolo-hf/masterfresh/pull/1/.github/workflows/workflow-A.yml@v1
 
   call-workflow-passing-data:
-    uses: ./.github/workflows/workflow-B.yml@main
+    uses: renansigolo-hf/masterfresh/pull/1/.github/workflows/workflow-B.yml@main
