@@ -1,0 +1,17 @@
+name: Call a reusable workflow
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  call-workflow:
+    uses: renansigolo-hf/masterfresh/.github/workflows/workflow-A.yml@v1
+
+  call-workflow-passing-data:
+    uses: renansigolo-hf/masterfresh/.github/workflows/workflow-B.yml@main
+    with:
+      username: mona
+    secrets:
+      token: ${{ secrets.TOKEN }}
