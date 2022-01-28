@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  REPOSITORY: masterfresh
+
 jobs:
   debug:
     runs-on: ubuntu-latest
@@ -27,9 +30,10 @@ jobs:
       - name: Checkout custom reusable actions
         uses: actions/checkout@v2
         with:
-          path: ${{ github.workspace }}
+          # Name of the repo
+          path: ${{ env.REPOSITORY }}
 
-      - name: Use action
+      - name: Use custom action
         uses: ./masterfresh/.github/actions/say-hello
         with:
           name: Renan
