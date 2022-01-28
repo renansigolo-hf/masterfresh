@@ -1,0 +1,9 @@
+name: Reusable Workflow A
+
+on: [workflow_call]
+
+jobs:
+  workflow-a:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "WORKFLOW A"
