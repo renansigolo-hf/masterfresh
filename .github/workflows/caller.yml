@@ -34,7 +34,7 @@ jobs:
           path: ${{ env.REPOSITORY }}
 
       - name: Use custom action
-        uses: "./${{ env.REPOSITORY }}/.github/actions/say-hello"
+        uses: ./masterfresh/.github/actions/say-hello
         with:
           name: Renan
 
