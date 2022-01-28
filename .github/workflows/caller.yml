@@ -24,10 +24,21 @@ jobs:
   call_workflow:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: ./actions/say-hello@v1
+      - name: Checkout custom reusable actions
+        uses: actions/checkout@v2
+        with:
+          repository: renansigolo-hf/masterfresh
+          path: masterfresh
+
+      - name: Use action
+        uses: ./masterfresh/actions/say-hello
         with:
           name: OctoCat
+
+      # - uses: actions/checkout@v2
+      # - uses: ./actions/say-hello@v1
+      #   with:
+      #     name: OctoCat
 
   # call_workflow_again:
   #   runs-on: ubuntu-latest
