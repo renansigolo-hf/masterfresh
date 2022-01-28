@@ -31,7 +31,7 @@ jobs:
           path: masterfresh
 
       - name: Use action
-        uses: ./masterfresh/actions/say-hello
+        uses: ./masterfresh/.github/actions/say-hello
         with:
           name: OctoCat
 
