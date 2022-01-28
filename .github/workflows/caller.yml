@@ -1,9 +1,12 @@
-name: Call multiple reusable workflows
+name: Caller
 
 on:
   pull_request:
     branches:
       - main
+
+env:
+  REPOSITORY: masterfresh
 
 jobs:
   debug:
@@ -12,7 +15,6 @@ jobs:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-
       - name: Check out repository code
         uses: actions/checkout@v2
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
@@ -22,30 +24,46 @@ jobs:
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
-  # call-workflow:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - run: ${{ github.repository }}/.github/workflows/workflow-a.yml@main
+  call_workflow_a:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout custom reusable actions
+        uses: actions/checkout@v2
+        with:
+          # Name of the repo
+          path: ${{ env.REPOSITORY }}
 
-  # call_workflow_a:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: ./.github/workflows/workflow-A.yml
+      - name: Use custom action
+        uses: ./masterfresh/.github/actions/say-hello
+        with:
+          name: Renan
 
-  # call_workflow_b:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: ${{ github.repository }}/.github/workflows/workflow-B.yml
-# jobs:
-#   call-workflow:
-#     uses: octo-org/example-repo/.github/workflows/workflow-A.yml@v1
+  call_workflow_b:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout reusable-actions
+        uses: actions/checkout@v2
+        with:
+          # Name of the repo
+          path: ${{ env.REPOSITORY }}
 
-#   call-workflow-passing-data:
-#     uses: octo-org/example-repo/.github/workflows/workflow-B.yml@main
-#     with:
-#       username: mona
-#     secrets:
-#       token: ${{ secrets.TOKEN }}
+      - name: ./masterfresh/.github/actions/hello-world
+        uses: ./masterfresh/.github/actions/hello-world
+        id: foo
+        with:
+          who-to-greet: "Mona the Octocat"
+
+  call_workflow_c:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout Custom Actions
+      - uses: actions/checkout@v2
+        with:
+          path: ${{ env.REPOSITORY }}
+
+      # Use Custom Actions
+      - uses: ./masterfresh/.github/actions/hello-world
+        with:
+          who-to-greet: "Mona the Octocat"
+      - run: echo random-number ${{ steps.foo.outputs.random-number }}
+        shell: bash
