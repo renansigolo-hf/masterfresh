@@ -6,8 +6,12 @@ on:
       - main
 
 jobs:
-  call_workflow_a:
-    uses: ./.github/actions/workflow-A.yml
+  caller:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/workflow-A
 
   call_workflow_b:
-    uses: ./.github/actions/workflow-B.yml
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/workflow-B.yml
