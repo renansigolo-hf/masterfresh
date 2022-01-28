@@ -29,10 +29,10 @@ jobs:
         with:
           name: OctoCat
 
-  call_workflow_again:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: ${{ github.workspace }}/actions/say-hello@v1
-        with:
-          name: OctoCat
+  # call_workflow_again:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: ${{ github.workspace }}/actions/say-hello@v1
+  #       with:
+  #         name: OctoCat
