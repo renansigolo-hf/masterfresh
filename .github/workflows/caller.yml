@@ -9,10 +9,12 @@ jobs:
   debug:
     runs-on: ubuntu-latest
     steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
 
-      - uses: actions/checkout@v2
-
+      - name: Check out repository code
+        uses: actions/checkout@v2
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: List files in the repository
@@ -24,9 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          path: .github/workflows/workflow-A.yml@v1
-      # - uses: renansigolo-hf/masterfresh/.github/workflows/workflow-A.yml@v1
+      - uses: ${{ github.ref }}/.github/workflows/workflow-A.yml@v1
 
   # call_workflow_a:
   #   runs-on: ubuntu-latest
