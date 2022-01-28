@@ -1,4 +1,4 @@
-name: Call multiple reusable workflows
+name: Caller
 
 on:
   pull_request:
@@ -24,7 +24,7 @@ jobs:
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
-  call_workflow:
+  call_workflow_a:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout custom reusable actions
@@ -34,6 +34,38 @@ jobs:
           path: ${{ env.REPOSITORY }}
 
       - name: Use custom action
-        uses: ./masterfresh/.github/actions/say-hello
+        uses: ./${{ env.REPOSITORY }}/.github/actions/say-hello
         with:
           name: Renan
+
+  call_workflow_b:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout reusable-actions
+        uses: actions/checkout@v2
+        with:
+          # Name of the repo
+          path: ${{ env.REPOSITORY }}
+
+      - uses: ./${{ env.REPOSITORY }}/.github/actions/hello-world
+      - id: foo
+        uses: actions/hello-world-composite-action@v1
+        with:
+          who-to-greet: "Mona the Octocat"
+
+  call_workflow_c:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout Custom Actions
+      - uses: actions/checkout@v2
+        with:
+          path: ${{ env.REPOSITORY }}
+
+      # Use Custom Actions
+      - uses: ./${{ env.REPOSITORY }}/.github/actions/hello-world
+      - id: foo
+        uses: actions/hello-world-composite-action@v1
+        with:
+          who-to-greet: "Mona the Octocat"
+      - run: echo random-number ${{ steps.foo.outputs.random-number }}
+        shell: bash
