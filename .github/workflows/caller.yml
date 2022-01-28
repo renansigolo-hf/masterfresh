@@ -53,19 +53,19 @@ jobs:
         with:
           who-to-greet: "Mona the Octocat"
 
-  # call_workflow_c:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     # Checkout Custom Actions
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         path: ${{ env.REPOSITORY }}
+  call_workflow_c:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout Custom Actions
+      - uses: actions/checkout@v2
+        with:
+          path: ${{ env.REPOSITORY }}
 
-  #     # Use Custom Actions
-  #     - uses: ./${{ env.REPOSITORY }}/.github/actions/hello-world
-  #     - id: foo
-  #       uses: actions/hello-world
-  #       with:
-  #         who-to-greet: "Mona the Octocat"
-  #     - run: echo random-number ${{ steps.foo.outputs.random-number }}
-  #       shell: bash
+      # Use Custom Actions
+      - uses: ./masterfresh/.github/actions/hello-world
+      - id: foo
+        uses: actions/hello-world
+        with:
+          who-to-greet: "Mona the Octocat"
+      - run: echo random-number ${{ steps.foo.outputs.random-number }}
+        shell: bash
