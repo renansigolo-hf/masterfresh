@@ -47,8 +47,8 @@ jobs:
           # Name of the repo
           path: ${{ env.REPOSITORY }}
 
-      - name: ./${{ env.REPOSITORY }}/.github/actions/hello-world
-        uses: ./${{ env.REPOSITORY }}/.github/actions/hello-world
+      - name: ./masterfresh/.github/actions/hello-world
+        uses: ./masterfresh/.github/actions/hello-world
         id: foo
         with:
           who-to-greet: "Mona the Octocat"
