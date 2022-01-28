@@ -1,0 +1,14 @@
+name: Call workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-ubuntu:
+    name: Uses workflow a
+    uses: renansigolo-hf/masterfresh/.github/workflows/workflow-a.yml@main
