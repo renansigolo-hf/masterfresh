@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: ${{ github.ref }}/.github/workflows/workflow-a.yml@v1
+      - run: ${{ github.repository }}/.github/workflows/workflow-a.yml@main
 
   # call_workflow_a:
   #   runs-on: ubuntu-latest
