@@ -24,10 +24,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/actions/workflow-A.yml
+        with:
+          # repository: actions/checkout
+          path: ./.github/actions/workflow-A.yml
 
   call_workflow_b:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/actions/workflow-B.yml
+        with:
+          repository: renansigolo-hf/masterfresh
+          path: ./.github/actions/workflow-A.yml
