@@ -12,7 +12,6 @@ jobs:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-
       - name: Check out repository code
         uses: actions/checkout@v2
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
@@ -22,30 +21,10 @@ jobs:
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
-  call-workflow:
+  call_workflow:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: ${{ github.repository }}/.github/workflows/workflow-a.yml@main
-
-  # call_workflow_a:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: ./.github/workflows/workflow-A.yml
-
-  # call_workflow_b:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: ${{ github.repository }}/.github/workflows/workflow-B.yml
-# jobs:
-#   call-workflow:
-#     uses: octo-org/example-repo/.github/workflows/workflow-A.yml@v1
-
-#   call-workflow-passing-data:
-#     uses: octo-org/example-repo/.github/workflows/workflow-B.yml@main
-#     with:
-#       username: mona
-#     secrets:
-#       token: ${{ secrets.TOKEN }}
+      - uses: ./.github/say-hello@v1
+        with:
+          name: OctoCat
