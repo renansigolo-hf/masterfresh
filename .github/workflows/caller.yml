@@ -6,14 +6,26 @@ on:
       - main
 
 jobs:
-  caller:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - uses: actions/checkout@v2
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+
+  call_workflow_a:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/actions/workflow-A.yml
+      - uses: ${{ github.repository }}/.github/actions/workflow-A.yml
 
   call_workflow_b:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/actions/workflow-B.yml
+      - uses: ${{ github.workspace }}/.github/actions/workflow-B.yml
