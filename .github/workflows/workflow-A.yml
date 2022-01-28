@@ -4,8 +4,7 @@ on:
   workflow_call:
 
 jobs:
-  example_job:
-    name: Pass input and secrets to my-action
+  reusable_workflow_a:
     runs-on: ubuntu-latest
     steps:
       - run: echo "WORKFLOW A"

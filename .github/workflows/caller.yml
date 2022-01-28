@@ -1,14 +1,13 @@
-name: Call a reusable workflow
+name: Call multiple reusable workflows
 
 on:
   pull_request:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
-  call-workflow:
-    uses: renansigolo-hf/masterfresh/pull/1/.github/workflows/workflow-A.yml@v1
+  call_workflow_a:
+    uses: ./.github/actions/workflow-A.yml
 
-  call-workflow-passing-data:
-    uses: ./.github/workflows/workflow-B.yml@main
+  call_workflow_b:
+    uses: ./.github/actions/workflow-B.yml
