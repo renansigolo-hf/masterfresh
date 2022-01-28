@@ -9,9 +9,11 @@ jobs:
   caller:
     runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/actions/workflow-A
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/workflow-A.yml
 
   call_workflow_b:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: ./.github/actions/workflow-B.yml
