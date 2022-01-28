@@ -20,8 +20,8 @@ jobs:
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
-  call-workflow:
-    uses: renansigolo-hf/masterfresh/.github/workflows/workflow-A.yml@v1
+  # call-workflow:
+  #   uses: renansigolo-hf/masterfresh/.github/workflows/workflow-A.yml@v1
 
   # call_workflow_a:
   #   runs-on: ubuntu-latest
