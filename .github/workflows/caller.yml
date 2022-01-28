@@ -22,11 +22,11 @@ jobs:
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
-  # call-workflow:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - run: ${{ github.repository }}/.github/workflows/workflow-a.yml@main
+  call-workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: ${{ github.repository }}/.github/workflows/workflow-a.yml@main
 
   # call_workflow_a:
   #   runs-on: ubuntu-latest
