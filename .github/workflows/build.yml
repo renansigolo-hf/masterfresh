@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     name: ${{ inputs.target }}
-    runs-on: [self-hosted, default]
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
       TARGET: ${{ inputs.target }}
