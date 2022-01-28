@@ -1,0 +1,41 @@
+#  Reusable Workflow to Build NPM applications
+name: Build NPM
+
+on:
+  workflow_call:
+    inputs:
+      target:
+        required: true
+        type: string
+
+jobs:
+  build:
+    name: ${{ inputs.target }}
+    runs-on: [self-hosted, default]
+    timeout-minutes: 10
+    env:
+      TARGET: ${{ inputs.target }}
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Set Project Environment
+        run: node set-env ${{ env.TARGET }}
+
+      - name: Build ${{ env.TARGET }}
+        run: npm run build:${{ env.TARGET }}
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build-${{ env.TARGET }}
+          path: dist
