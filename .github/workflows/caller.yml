@@ -22,10 +22,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ${{ github.repository }}/.github/actions/workflow-A.yml
+      - uses: "${{ github.repository }}/.github/actions/workflow-A.yml"
 
   call_workflow_b:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ${{ github.workspace }}/.github/actions/workflow-B.yml
+      - uses: "${{ github.workspace }}/.github/actions/workflow-B.yml"
