@@ -23,17 +23,17 @@ jobs:
   call-workflow:
     uses: renansigolo-hf/masterfresh/.github/workflows/workflow-A.yml@v1
 
-  call_workflow_a:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: ./.github/workflows/workflow-A.yml
+  # call_workflow_a:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: ./.github/workflows/workflow-A.yml
 
-  call_workflow_b:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: ${{ github.repository }}/.github/workflows/workflow-B.yml
+  # call_workflow_b:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: ${{ github.repository }}/.github/workflows/workflow-B.yml
 # jobs:
 #   call-workflow:
 #     uses: octo-org/example-repo/.github/workflows/workflow-A.yml@v1
