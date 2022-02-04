@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "sourceMap": true,
-    "outDir": "dist",
-    "target": "es2017",
+    "target": "es2018",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
+    "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -18,14 +18,13 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "@environments/*": ["./src/environments/*"]
+      "@app/*": ["src/app/*"],
+      "@assets/*": ["src/assets/*"],
+      "@config": ["src/config/*"],
+      "@domain/*": ["src/domain/*"],
+      "@services/*": ["src/services/*"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/@types/custom.d.ts",
-    "src/**/*.spec.ts"
-  ],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "build"]
 }

@@ -1,0 +1,51 @@
+# Example of bumping a version tag on git and creating a new release on github
+name: Release New Version
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    name: Github Release
+    runs-on: [self-hosted, default]
+    outputs:
+      new_version: ${{ steps.deployed-version.outputs.version }}
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v2
+
+      - name: Import Secrets
+        id: vault-secrets
+        uses: hashicorp/vault-action@v2.3.0
+        with:
+          url: https://vault.hellofresh.io/
+          method: kubernetes
+          path: tools-k8s
+          role: github-actions-runners-read-default
+          secrets: gh-actions/global/defaults GITHUB_TOKEN | GITHUB_TOKEN;
+
+      - name: Checkout jetstream-ci-scripts
+        uses: actions/checkout@v2
+        with:
+          repository: hellofresh/jetstream-ci-scripts
+          path: jetstream-ci-scripts
+          token: ${{ steps.vault-secrets.outputs.GITHUB_TOKEN }}
+
+      # Bump a version tag on git
+      # https://github.com/hellofresh/jetstream-ci-scripts/blob/master/actions/bump-version/action.yml
+      - name: Bump Version
+        id: version
+        uses: ./jetstream-ci-scripts/actions/bump-version
+        with:
+          repository: ${{ github.repository }}
+          access_token: ${{ steps.vault-secrets.outputs.GITHUB_TOKEN }}
+
+      # Release the latest tagged version from git on github releases
+      # https://github.com/hellofresh/jetstream-ci-scripts/tree/master/actions/github-release
+      - name: Github Release
+        uses: ./jetstream-ci-scripts/actions/github-release
+        with:
+          access_token: ${{ steps.vault-secrets.outputs.GITHUB_TOKEN }}
+          tag: ${{ steps.version.outputs.new_version }}

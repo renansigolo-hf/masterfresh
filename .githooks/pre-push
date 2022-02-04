@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo "Running pre-push hook"
+
+# Run unit tests from npm script
+echo "Running unit tests"
+npm test

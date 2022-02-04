@@ -1,0 +1,72 @@
+#!/bin/sh
+
+echo "Running pre-commit hook"
+
+# This hook checks branch name for convention
+BRANCH_NAME="$(git rev-parse --abbrev-ref HEAD)"
+
+# Include any branches for which you wish to disable this script
+if [ -z "$BRANCHES_TO_SKIP" ]
+then
+    BRANCHES_TO_SKIP=(master develop staging test)
+fi
+
+# Check if branch name is valid
+# shellcheck disable=SC2199,SC2076
+if [[ "${BRANCHES_TO_SKIP[@]}" =~ "${BRANCH_NAME}" ]]
+then
+    echo "Skipping branch Jira ID check for ${BRANCH_NAME}"
+    exit 1
+fi
+
+# Regex for branch naming convention
+VALID_BRANCH_REGEX="^(feature|issue|major|minor|patch|hotfix|release)\/(YOUR_JIRA_PREFIX)-\d+-[a-z0-9._-]+$"
+
+message="There is something wrong with your branch name. Branch names in this project must adhere to this contract: $VALID_BRANCH_REGEX. Your commit will be rejected. You should rename your branch to a valid name and try again."
+
+HAS_JIRA_ID=$(echo "$BRANCH_NAME" | /usr/bin/perl -ne "/$VALID_BRANCH_REGEX/ && print $1")
+
+# Check if branch name is valid
+if [[ ! $HAS_JIRA_ID ]]
+then
+    echo "$message"
+    exit 1
+fi
+
+# Trim it down to get the parts we're interested in
+jiraId=$(echo "$BRANCH_NAME" | sed -e 's:^\([^-]*-[^-]*\)-.*:\1:' -e "s/[feature|issue|major|minor|patch|hotfix|release]//g" -e "s/\///g")
+
+if [[ -z "$jiraId" ]]
+then
+    echo "$message"
+    exit 1
+fi
+
+echo "Preparing commit for $jiraId"
+
+# Check if gitleaks it currently enabled
+gitleaksEnabled=$(git config --bool hooks.gitleaks)
+cmd="$GITLEAKS_HOME"
+if [ $gitleaksEnabled == "true" ]; then
+        $cmd
+        if [ $? -eq 1 ]; then
+cat <<\EOF
+Alert: Possible exposure of sensitive information was identified in your changes.
+You must review your changes and make sure that no passwords, keys, tokens
+and/or secrets are commited.
+If you think that this is a false positive, please report it
+to security@hellofresh.com with the link to your commit.
+You can temporarily disable the check with the following command:
+  > $ git config hooks.gitleaks false
+Please remember to reenable it immediately.
+We appreciate your help.
+HelloFresh Information Security Team
+
+EOF
+exit 1
+    fi
+fi
+
+# Run linters on git staged files
+echo "Linting staged files"
+npx lint-staged

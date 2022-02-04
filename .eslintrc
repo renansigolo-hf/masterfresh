@@ -1,6 +1,11 @@
 {
   "root": true,
-  "ignorePatterns": "webpack.config.js",
+  "ignorePatterns": [
+    "build",
+    "node_modules",
+    "config/*",
+    "src/@types/custom.d.ts"
+  ],
   "settings": {
     "react": {
       "version": "latest"

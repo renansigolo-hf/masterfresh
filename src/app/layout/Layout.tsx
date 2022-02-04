@@ -1,10 +1,11 @@
 import { Container } from "@hellofresh/scm-design-system";
-import React from "react";
+import { Outlet } from "react-router-dom";
+import { AuthStatus } from "../core/auth/AuthStatus";
 import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
 
 type LayoutProps = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 export function Layout({ children }: LayoutProps) {
@@ -15,12 +16,16 @@ export function Layout({ children }: LayoutProps) {
       <Container
         maxWidth="lg"
         style={{
-          minHeight: "calc(100vh - 56px)",
           paddingTop: "56px",
           paddingBottom: "24px",
         }}
       >
-        <main>{children}</main>
+        <main>
+          <AuthStatus />
+          {children}
+
+          <Outlet />
+        </main>
       </Container>
 
       <Footer />
