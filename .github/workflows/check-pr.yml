@@ -1,156 +1,31 @@
-# Example of some default checks on a Pull Request
 name: Check PR
 
 on:
   pull_request:
     branches:
-      - master
+      - main
 
-env:
-  TARGET: test
+concurrency:
+  group: checking-${{ github.head_ref }}
+  cancel-in-progress: false
 
 jobs:
-  check_branch_name:
-    name: Branch Name
-    runs-on: [self-hosted, default]
-    timeout-minutes: 5
+  check_pr_1:
+    name: Check PR 1
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Import Secrets
-        id: vault-secrets
-        uses: hashicorp/vault-action@v2.3.0
-        with:
-          url: https://vault.hellofresh.io/
-          method: kubernetes
-          path: tools-k8s
-          role: github-actions-runners-read-default
-          secrets: gh-actions/global/defaults GITHUB_TOKEN | GITHUB_TOKEN;
+      - name: Output HeadRef
+        run: echo "${{ github.head_ref }}"
 
-      - name: Checkout Source Code
-        uses: actions/checkout@v2
+      - name: Build The Code 01
+        run: |
+          echo "Starting Code Build"
+          sleep 1m
+          echo "Finishing Code Build"
 
-      - name: Checkout jetstream-ci-scripts
-        uses: actions/checkout@v2
-        with:
-          repository: hellofresh/jetstream-ci-scripts
-          path: jetstream-ci-scripts
-          token: ${{ steps.vault-secrets.outputs.GITHUB_TOKEN }}
-
-      - name: Check Branch Name (Jetstream)
-        uses: ./jetstream-ci-scripts/actions/check-branch
-
-  check_code_style:
-    name: Code Style
-    runs-on: [self-hosted, default]
-    timeout-minutes: 5
-
-    steps:
-      - name: Checkout Source Code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "16.x"
-          cache: "npm"
-
-      - name: Install Dependencies
-        run: npm ci --ignore-scripts
-
-      - name: Set Environment
-        run: npm run set:env ${{ env.TARGET }}
-
-      - name: Check code formatting against prettier
-        run: npm run format:check
-
-      - name: Lint the codebase with ESLint
-        run: npm run lint
-
-  check_unit_tests:
-    name: Unit Tests
-    runs-on: [self-hosted, default]
-    timeout-minutes: 10
-
-    steps:
-      - name: Checkout Source Code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "16.x"
-          cache: "npm"
-
-      - name: Install Dependencies
-        run: npm ci --ignore-scripts
-
-      - name: Set Environment
-        run: npm run set:env ${{ env.TARGET }}
-
-      - name: Run Unit Tests
-        run: npm run test:ci
-
-  # BUILD ARTIFACTS
-  build_staging:
-    name: Build Staging
-    runs-on: [self-hosted, default]
-    needs: [check_branch_name, check_code_style, check_unit_tests]
-    timeout-minutes: 10
-    env:
-      TARGET: staging
-
-    steps:
-      - name: Checkout Source Code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "16.x"
-          cache: "npm"
-
-      - name: Install Dependencies
-        run: npm ci --ignore-scripts
-
-      - name: Set Project Environment
-        run: npm run set:env ${{ env.TARGET }}
-
-      - name: Build ${{ env.TARGET }}
-        run: npm run build:${{ env.TARGET }}
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: build-${{ env.TARGET }}
-          path: dist
-
-  build_production:
-    name: Build Production
-    runs-on: [self-hosted, default]
-    needs: build_staging
-    timeout-minutes: 10
-    env:
-      TARGET: production
-
-    steps:
-      - name: Checkout Source Code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "16.x"
-          cache: "npm"
-
-      - name: Install Dependencies
-        run: npm ci --ignore-scripts
-
-      - name: Set Project Environment
-        run: npm run set:env ${{ env.TARGET }}
-
-      - name: Build ${{ env.TARGET }}
-        run: npm run build:${{ env.TARGET }}
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: build-${{ env.TARGET }}
-          path: dist
+      - name: Build The Code 02
+        run: |
+          echo "Starting Code Build"
+          sleep 1m
+          echo "Finishing Code Build"
