@@ -1,0 +1,62 @@
+# Publish a new version of the SCM Design System to npm
+
+name: Publish Design System Library
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: A semver numeric value used to publish on npm (E.g. 1.0.0)
+        required: true
+        type: string
+        default: "0.0.0"
+      tag:
+        description: The npm tag where the library will be published
+        required: true
+        type: choice
+        options:
+          - canary
+          - latest
+
+  push:
+    branches:
+      - master
+
+env:
+  VERSION: ${{ github.event.inputs.version }}
+  TAG: ${{ github.event.inputs.tag }}
+
+jobs:
+  publish_npm:
+    name: Publish on npm
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v2
+
+      # - name: Import Secrets
+      #   id: vault_secrets
+      #   uses: hashicorp/vault-action@v2.4.0
+      #   with:
+      #     url: https://vault.hellofresh.io/
+      #     method: kubernetes
+      #     path: tools-k8s
+      #     role: github-actions-runners-read-default
+      #     secrets: gh-actions/repos/scm-design-system NPM_AUTH_TOKEN | NODE_AUTH_TOKEN;
+
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install Yarn
+        run: npm i yarn -g
+
+      - name: On Manual Trigger -> Publish v${{ env.VERSION }} (${{ env.TAG }})
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        # working-directory: ./packages/scm-design-system
+        run: |
+          echo "TAG ${{ env.TAG }}"
+          echo "VERSION ${{ env.VERSION }}"
