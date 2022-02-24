@@ -54,8 +54,7 @@ jobs:
         run: npm i yarn -g
 
       - name: On Manual Trigger -> Publish v${{ env.VERSION }} (${{ env.TAG }})
-        if: ${{ github.event_name == 'workflow_dispatch' }}
         # working-directory: ./packages/scm-design-system
         run: |
           echo "TAG ${{ env.TAG }}"
-          echo "VERSION ${{ env.VERSION }}"
+          node scripts/check-semver-ci.js ${{ env.VERSION }}
