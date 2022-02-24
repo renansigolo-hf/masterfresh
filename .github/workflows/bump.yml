@@ -51,10 +51,11 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Install Yarn
-        run: npm i yarn semver -g
+        run: npm i yarn -g
 
       - name: On Manual Trigger -> Publish v${{ env.VERSION }} (${{ env.TAG }})
         # working-directory: ./packages/scm-design-system
         run: |
+          npm i
           echo "TAG ${{ env.TAG }}"
           node scripts/check-semver-ci.js ${{ env.VERSION }}
