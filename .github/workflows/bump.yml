@@ -53,7 +53,7 @@ jobs:
       - name: Install Yarn
         run: npm i yarn -g
 
-      - name: On Manual Trigger -> Publish v${{ env.VERSION }} (${{ env.TAG }})
+      - name: Publish v${{ env.VERSION }} at (${{ env.TAG }})
         # working-directory: ./packages/scm-design-system
         run: |
           npm i
