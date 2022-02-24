@@ -1,6 +1,6 @@
 {
   "name": "react-service-template",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Sensible React Template for new HelloFresh FrontEnd applications",
   "homepage": "https://github.com/hellofresh/katana-services#readme",
