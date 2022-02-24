@@ -9,6 +9,10 @@ on:
 env:
   TARGET: test
 
+concurrency:
+  group: checking-${{ github.head_ref }}
+  cancel-in-progress: true
+
 jobs:
   check_branch_name:
     name: Branch Name
