@@ -21,11 +21,11 @@ jobs:
       - name: Build The Code 01
         run: |
           echo "Starting Code Build"
-          sleep 2m
+          sleep 1m
           echo "Finishing Code Build"
 
       - name: Build The Code 02
         run: |
           echo "Starting Code Build"
-          sleep 2m
+          sleep 1m
           echo "Finishing Code Build"
