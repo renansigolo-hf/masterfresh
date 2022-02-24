@@ -12,3 +12,5 @@ In order to use the GitHub Actions inside the workflows folder you need to make 
 1. Replace any specific paths or secrets with your application defaults. Try searching for `<your_repo_bucket_name>` as an example
 
 LalaLand
+
+Making changes
