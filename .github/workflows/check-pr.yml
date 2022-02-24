@@ -10,203 +10,22 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  check_branch_name:
-    name: Branch Name
-    runs-on: [self-hosted, default]
-    timeout-minutes: 5
+  check_pr_1:
+    name: Check PR 1
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Import Secrets
-        id: vault_secrets
-        uses: hashicorp/vault-action@v2.4.0
-        with:
-          url: https://vault.hellofresh.io/
-          method: kubernetes
-          path: tools-k8s
-          role: github-actions-runners-read-default
-          secrets: gh-actions/global/defaults GITHUB_TOKEN | GITHUB_TOKEN;
+      - name: Output HeadRef
+        run: echo "${{ github.head_ref }}"
 
-      - name: Checkout Source Code
-        uses: actions/checkout@v2
+      - name: Build The Code 01
+        run: |
+          echo "Starting Code Build"
+          sleep 2m
+          echo "Finishing Code Build"
 
-      - name: Checkout jetstream-ci-scripts
-        uses: actions/checkout@v2
-        with:
-          repository: hellofresh/jetstream-ci-scripts
-          path: jetstream-ci-scripts
-          token: ${{ steps.vault_secrets.outputs.GITHUB_TOKEN }}
-
-      - name: Check Branch Name
-        uses: ./jetstream-ci-scripts/actions/check-branch
-
-  check_code_style:
-    name: Code Style
-    runs-on: [self-hosted, default]
-    timeout-minutes: 5
-    env:
-      TARGET: test
-
-    steps:
-      - name: Checkout Source Code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "16.x"
-          cache: npm
-
-      - name: Install Dependencies
-        run: npm ci --ignore-scripts
-
-      - name: Set Environment
-        run: node set-env ${{ env.TARGET }}
-
-      - name: Check Format with Prettier
-        run: npm run format:check
-
-      - name: Check Lint with ESLint
-        run: npm run lint
-
-      - name: Check Compile with Typescript
-        run: npm run compile
-
-  check_unit_tests:
-    name: Unit Tests
-    runs-on: [self-hosted, default]
-    timeout-minutes: 10
-    env:
-      TARGET: test
-
-    steps:
-      - name: Checkout Source Code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "16.x"
-          cache: npm
-
-      - name: Install Dependencies
-        run: npm ci --ignore-scripts
-
-      - name: Set Environment
-        run: node set-env ${{ env.TARGET }}
-
-      - name: Check Unit Tests
-        run: npm run test:ci
-
-  check_build:
-    name: Build
-    runs-on: [self-hosted, default]
-    needs: [check_branch_name, check_code_style, check_unit_tests]
-    timeout-minutes: 10
-    strategy:
-      matrix:
-        group: ["staging", "production"]
-    env:
-      TARGET: ${{ matrix.group }}
-
-    steps:
-      - name: Checkout Source Code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "16.x"
-          cache: npm
-
-      - name: Install Dependencies
-        run: npm ci --ignore-scripts
-
-      - name: Set Project Environment
-        run: node set-env ${{ env.TARGET }}
-
-      - name: Build ${{ env.TARGET }}
-        run: npm run build:${{ env.TARGET }}
-
-      - name: Upload Artifact ${{ env.TARGET }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: build-${{ env.TARGET }}-pr-${{ github.event.pull_request.number }}
-          path: dist
-
-  check_terraform:
-    name: Terraform
-    runs-on: [self-hosted, default]
-    needs: [check_branch_name, check_code_style, check_unit_tests]
-    timeout-minutes: 10
-    strategy:
-      matrix:
-        group: ["staging", "production"]
-    env:
-      TARGET: ${{ matrix.group }}
-      AWS_ROLE: arn:aws:iam::532495396307:role/github-actions-runner
-
-    steps:
-      - name: Import Secrets
-        id: vault_secrets
-        uses: hashicorp/vault-action@v2.4.0
-        with:
-          url: https://vault.hellofresh.io/
-          method: kubernetes
-          path: tools-k8s
-          role: github-actions-runners-read-default
-          secrets: |
-            gh-actions/global/defaults GITHUB_TOKEN | GITHUB_TOKEN;
-            gh-actions/global/defaults TERRAFORM_VAULT_TOKEN | VAULT_TOKEN;
-
-      - name: Checkout source code
-        uses: actions/checkout@v2
-
-      - name: Checkout jetstream-ci-scripts
-        uses: actions/checkout@v2
-        with:
-          repository: hellofresh/jetstream-ci-scripts
-          path: jetstream-ci-scripts
-          token: ${{ steps.vault_secrets.outputs.GITHUB_TOKEN }}
-
-      - name: Check Terraform Formatting
-        uses: ./jetstream-ci-scripts/actions/terraform
-        with:
-          version: "1.1.5"
-          aws_role: ${{ env.AWS_ROLE }}
-          vault_token: ${{ steps.vault_secrets.outputs.VAULT_TOKEN }}
-          github_token: ${{ steps.vault_secrets.outputs.GITHUB_TOKEN }}
-          directory: ${{ github.workspace }}/terraform/${{ env.TARGET }}
-          action: fmt -check
-
-      - name: Terraform Validate
-        uses: ./jetstream-ci-scripts/actions/terraform
-        with:
-          version: "1.1.5"
-          aws_role: ${{ env.AWS_ROLE }}
-          vault_token: ${{ steps.vault_secrets.outputs.VAULT_TOKEN }}
-          github_token: ${{ steps.vault_secrets.outputs.GITHUB_TOKEN }}
-          directory: ${{ github.workspace }}/terraform/${{ env.TARGET }}
-          action: validate
-
-      - name: Terraform Plan
-        uses: ./jetstream-ci-scripts/actions/terraform
-        with:
-          version: "1.1.5"
-          aws_role: ${{ env.AWS_ROLE }}
-          vault_token: ${{ steps.vault_secrets.outputs.VAULT_TOKEN }}
-          github_token: ${{ steps.vault_secrets.outputs.GITHUB_TOKEN }}
-          directory: ${{ github.workspace }}/terraform/${{ env.TARGET }}
-          action: plan
-
-  complete_check_pr:
-    name: Complete Check PR
-    needs:
-      - check_branch_name
-      - check_code_style
-      - check_unit_tests
-      - check_build
-      - check_terraform
-    runs-on: [self-hosted, default]
-    if: ${{ !failure() && !cancelled() }}
-    steps:
-      - run: echo "All jobs successful or skipped!"
+      - name: Build The Code 02
+        run: |
+          echo "Starting Code Build"
+          sleep 2m
+          echo "Finishing Code Build"
