@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: A semver numeric value used to publish on npm (E.g. 1.0.0 | 1.0.0-canary.1)
+        description: A semver numeric value used to publish on npm (E.g. 1.0.0 or 1.0.0-canary.1)
         required: true
         type: string
       tag:
