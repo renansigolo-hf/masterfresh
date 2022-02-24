@@ -51,7 +51,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Install Yarn
-        run: npm i yarn -g
+        run: npm i yarn semver -g
 
       - name: On Manual Trigger -> Publish v${{ env.VERSION }} (${{ env.TAG }})
         # working-directory: ./packages/scm-design-system
