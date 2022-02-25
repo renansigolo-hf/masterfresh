@@ -1,10 +1,12 @@
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+const swcConfig = require("./.swcrc.json");
+
+/** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
   bail: true,
   testEnvironment: "jsdom",
   testMatch: ["**/src/**/*.spec.ts?(x)"],
   transform: {
-    "^.+\\.(ts|tsx)$": "ts-jest",
+    "^.+\\.(ts|tsx)$": ["@swc/jest", swcConfig],
   },
   moduleNameMapper: {
     "^@environments(.*)$": "<rootDir>/src/environments$1",

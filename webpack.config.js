@@ -2,10 +2,10 @@ const path = require("path");
 const { ProvidePlugin, NormalModuleReplacementPlugin } = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+const swcConfig = require("./.swcrc.json");
 
 // Set node.env
 process.env.NODE_ENV = process.env.NODE_ENV ?? "development";
-console.info(`🧰 Running NODE_ENV in ${process.env.NODE_ENV.toUpperCase()}`);
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
@@ -27,12 +27,8 @@ module.exports = {
         resolve: {
           extensions: [".ts", ".tsx", ".js", ".json"],
         },
-        use: {
-          loader: "esbuild-loader",
-          options: {
-            loader: "tsx",
-          },
-        },
+        loader: "swc-loader",
+        options: swcConfig,
       },
     ],
   },

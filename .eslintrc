@@ -4,7 +4,8 @@
     "build",
     "node_modules",
     "config/*",
-    "src/@types/custom.d.ts"
+    "src/@types/custom.d.ts",
+    "*.js"
   ],
   "settings": {
     "react": {
