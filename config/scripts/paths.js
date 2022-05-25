@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require("path")
 
 module.exports = {
   // Source files
@@ -15,4 +15,4 @@ module.exports = {
 
   // NPM config file
   npmrc: path.resolve(__dirname, "..", "..", ".npmrc"),
-};
+}

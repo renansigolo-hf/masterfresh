@@ -1,7 +1,7 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom"
 
 export function NotFoundView() {
-  const location = useLocation();
+  const location = useLocation()
 
   return (
     <div>
@@ -11,5 +11,5 @@ export function NotFoundView() {
       </h4>
       <Link to="/">Go to home</Link>
     </div>
-  );
+  )
 }

@@ -1,19 +1,19 @@
-import { FC } from "react";
-import { Route } from "react-router-dom";
-import { NotFoundView } from "../../feature/not-found/NotFoundView";
+import { FC } from "react"
+import { Route } from "react-router-dom"
+import { NotFoundView } from "../../feature/not-found/NotFoundView"
 
 const authenticatedPages = {
   "/settings": "SettingsView",
-};
+}
 
 type RouterProps = {
-  isLoadingUser: boolean;
-  isAuthenticated: boolean;
-  authCallbackPath: string;
-};
+  isLoadingUser: boolean
+  isAuthenticated: boolean
+  authCallbackPath: string
+}
 
 export const Router: FC<RouterProps> = (props) => {
-  if (props.isLoadingUser) return null;
+  if (props.isLoadingUser) return null
 
   return (
     <Route>
@@ -43,7 +43,7 @@ export const Router: FC<RouterProps> = (props) => {
         <NotFoundView />
       </Route>
     </Route>
-  );
-};
+  )
+}
 
-export const Routes = Router;
+export const Routes = Router

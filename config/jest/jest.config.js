@@ -1,3 +1,5 @@
+const swcConfig = require("../../.swcrc.json")
+
 /** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
   bail: true,
@@ -5,7 +7,7 @@ module.exports = {
   testEnvironment: "jsdom",
   testMatch: ["**/src/**/*.spec.ts?(x)"],
   transform: {
-    "^.+\\.(ts|tsx)$": "@swc/jest",
+    "^.+\\.(ts|tsx)$": ["@swc/jest", swcConfig],
   },
   moduleNameMapper: {
     "^@app(.*)$": "<rootDir>/src/app$1",
@@ -16,4 +18,4 @@ module.exports = {
   },
   setupFilesAfterEnv: ["<rootDir>/config/jest/jest.setup.js"],
   cacheDirectory: "<rootDir>/config/jest/cache",
-};
+}

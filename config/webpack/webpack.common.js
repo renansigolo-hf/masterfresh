@@ -1,8 +1,9 @@
-const { ProvidePlugin } = require("webpack");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { ProvidePlugin } = require("webpack")
+const CopyWebpackPlugin = require("copy-webpack-plugin")
+const HtmlWebpackPlugin = require("html-webpack-plugin")
 
-const paths = require("../scripts/paths");
+const paths = require("../scripts/paths")
+const swcConfig = require("../../.swcrc.json")
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
@@ -27,9 +28,10 @@ module.exports = {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         resolve: {
-          extensions: [".ts", ".tsx", ".json"],
+          extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
         },
         loader: "swc-loader",
+        options: swcConfig,
       },
 
       // Images: Copy image files to build folder
@@ -40,15 +42,18 @@ module.exports = {
     ],
   },
 
+  // Map relative paths to modules
   resolve: {
     extensions: [".json", ".ts", ".tsx", "..."],
     modules: [paths.src, "node_modules"],
     alias: {
       "@app": `${paths.src}/app`,
       "@assets": [`${paths.src}/assets`],
+      "@io": [`${paths.src}/io`],
       "@config": [`${paths.src}/config`],
       "@domain": [`${paths.src}/domain`],
       "@services": [`${paths.src}/services`],
+      "@mui/styled-engine": "@mui/styled-engine-sc",
     },
   },
 
@@ -75,7 +80,7 @@ module.exports = {
     // Generates an HTML file from a template
     new HtmlWebpackPlugin({
       template: `${paths.public}/index.html`,
-      favicon: "./public/favicon.ico",
+      // favicon: "./public/favicon.ico",
     }),
   ],
-};
+}

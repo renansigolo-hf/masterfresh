@@ -1,8 +1,8 @@
 {
-  "id": "YOUR_APP_ID",
-  "short_name": "YOUR_APP_NAME",
-  "name": "YOUR_APP_NAME",
-  "description": "YOUR_APP_DESCRIPTION",
+  "id": "scm-australia-react-template",
+  "short_name": "SCM Australia React Template",
+  "name": "SCM Australia React Template",
+  "description": "React Template",
   "display": "minimal-ui",
   "theme_color": "#96DC14",
   "background_color": "#ffffff",

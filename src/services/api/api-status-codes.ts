@@ -1,6 +1,6 @@
 type ApiStatusCode = {
-  [statusCode: number]: string;
-};
+  [statusCode: number]: string
+}
 
 export const apiStatusCodes: Readonly<ApiStatusCode> = {
   200: "OK",
@@ -65,4 +65,4 @@ export const apiStatusCodes: Readonly<ApiStatusCode> = {
   511: "Network Authentication Required",
   598: "Network Read Timeout Error",
   599: "Network Connect Timeout Error",
-};
+}

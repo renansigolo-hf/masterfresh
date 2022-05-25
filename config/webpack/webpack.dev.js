@@ -1,8 +1,8 @@
-const { merge } = require("webpack-merge");
-const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+const { merge } = require("webpack-merge")
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin")
 
-const common = require("./webpack.common");
-const paths = require("../scripts/paths");
+const common = require("./webpack.common")
+const paths = require("../scripts/paths")
 
 /** @type {import('webpack').Configuration} */
 module.exports = merge(common, {
@@ -33,4 +33,4 @@ module.exports = merge(common, {
     // Enable Hot Module Replacement
     new ReactRefreshWebpackPlugin(),
   ],
-});
+})
