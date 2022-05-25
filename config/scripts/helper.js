@@ -18,4 +18,4 @@ module.exports = {
     Please follow the instructions at the NPM Access Token section of the README.md file
     `,
   },
-};
+}

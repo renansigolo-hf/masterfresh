@@ -1,39 +1,22 @@
-import React from "react";
-
 export interface MenuItem {
-  id: string;
-  label: string;
-  path?: string;
-  items?: MenuItem[];
+  id: string
+  label: string
+  path?: string
+  items?: MenuItem[]
 }
 
-type Menu = MenuItem[];
-
 type Route = {
-  route: string;
-  path: string;
-  title: string;
-  country?: string[];
-  component?: React.FC;
-};
+  route: string
+  path: string
+  title: string
+  country?: string[]
+  component?: React.FC
+}
 
 type RoutePartition = {
-  public: Route[];
-  protected: Route[];
-};
-
-export const AppMenu: Menu = [
-  { id: "home", label: "Home", path: "/" },
-  {
-    id: "processing",
-    label: "Order Processing & Generation",
-    items: [
-      { id: "odl-pdl", label: "ODL/PDL Generation" },
-      { id: "adl", label: "ADL Generation" },
-    ],
-  },
-  { id: "settings", label: "Settings", path: "/settings" },
-];
+  public: Route[]
+  protected: Route[]
+}
 
 export const routes: RoutePartition = {
   public: [
@@ -55,6 +38,6 @@ export const routes: RoutePartition = {
       title: "Pipeline list",
     },
   ],
-};
+}
 
-export type Routes = typeof routes;
+export type Routes = typeof routes

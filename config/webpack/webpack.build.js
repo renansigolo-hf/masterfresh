@@ -1,7 +1,7 @@
-const { merge } = require("webpack-merge");
+const { merge } = require("webpack-merge")
 
-const common = require("./webpack.common");
-const paths = require("../scripts/paths");
+const common = require("./webpack.common")
+const paths = require("../scripts/paths")
 
 /** @type {import('webpack').Configuration} */
 module.exports = merge(common, {
@@ -20,4 +20,4 @@ module.exports = merge(common, {
       name: "runtime",
     },
   },
-});
+})

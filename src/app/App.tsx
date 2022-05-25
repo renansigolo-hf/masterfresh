@@ -1,33 +1,28 @@
-import { Route, Routes } from "react-router-dom";
-import { RequireAuth } from "./core/auth/RequireAuth";
-import { HomeView } from "./feature/home/HomeView";
-import { SignInView } from "./feature/sign-in/SignInView";
-import { Layout } from "./layout/Layout";
+import { Route, Routes } from "react-router-dom"
+import { RequireAuth } from "./core/auth/RequireAuth"
+import { HomeView } from "./feature/home/HomeView"
+import { SignInView } from "./feature/sign-in/SignInView"
+import { Layout } from "./layout/Layout"
 
-export default function App() {
+export function App() {
   return (
     <>
-      <br />
-      <br />
-      <br />
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/" element={<HomeView />} />
-          <Route path="/signin" element={<SignInView />} />
+          {/* Protected Routes */}
           <Route
-            path="/protected"
+            path="/"
             element={
               <RequireAuth>
-                <ProtectedPage />
+                <HomeView />
               </RequireAuth>
             }
           />
+
+          {/* Route Paths */}
+          <Route path="/signin" element={<SignInView />} />
         </Route>
       </Routes>
     </>
-  );
-}
-
-function ProtectedPage() {
-  return <HomeView />;
+  )
 }

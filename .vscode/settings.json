@@ -1,4 +1,4 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "git.branchValidationRegex": "^(feature|issue|major|minor|patch|hotfix|release)\\/(KAT|KUS)-\\d+-[a-z0-9._-]+$"
+  "git.branchValidationRegex": "^(feature|issue|major|minor|patch|hotfix|release)\\/(MF)-\\d+-[a-z0-9._-]+$"
 }
