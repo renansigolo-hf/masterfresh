@@ -25,11 +25,7 @@ export function AuthStatus() {
   return (
     <p>
       Welcome {auth.user}!{" "}
-      <button
-        onClick={() => {
-          auth.signout(() => navigate("/"))
-        }}
-      >
+      <button onClick={() => auth.signout(() => navigate("/"))}>
         Sign out
       </button>
     </p>
