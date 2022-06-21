@@ -7,7 +7,7 @@ A project template for creating applications with React
 - [Node.js 16](https://nodejs.org/en/)
 - [NPM Access Token](https://docs.npmjs.com/creating-and-viewing-access-tokens)
 - Access to the hellofresh organization on npm
-- [Gitleaks](https://hellodev.hellofresh.io/docs/default/system/hf-toolbox/user-guide/menu/security/#security-menu)
+- [Gitleaks](https://github.com/zricethezav/gitleaks)
 - [Git Hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)
 
 ## Setup
@@ -31,14 +31,26 @@ In order to install a private repo from npm you'll need an npm access token that
 
 Now when running `npm install` the `.npmrc` file in this repository will pick up your exported npm token and use it to authenticate the installation of private packages for you.
 
-### Gitleaks
+### Configure gitleaks
 
-- Download the latest HelloFresh `gitleaks` binary
-
-  1. [macOS](https://hf-security-artifacts-public.s3.eu-central-1.amazonaws.com/git-secret-scan/gitleaks-darwin-amd64)
-  1. Move the binary to your preferred location and export an environment variable `GITLEAKS_HOME` that points to the path
-
-     > e.g.: adding `export GITLEAKS_HOME=/usr/local/bin/gitleaks` to your `.envrc` file if uising `direnv`
+1. Install [gitleaks](https://github.com/zricethezav/gitleaks)
+1. Check the path gitleaks is installed
+   ```bash
+   which gitleaks
+   # /opt/homebrew/bin/gitleaks
+   ```
+1. In your _.zshrc_ file export an environment variable **GITLEAKS_HOME** that points to the path shown on the previous step
+   ```bash
+   export GITLEAKS_HOME="/opt/homebrew/bin/gitleaks"
+   ```
+1. Source your _.zshrc_ to apply your changes
+   ```bash
+   source ~/.zshrc
+   ```
+1. Copy the content from _.githook_ to the _.git/hooks_ folder by running
+   ```bash
+   make install_hooks
+   ```
 
 ### Git Hooks
 
