@@ -8,7 +8,7 @@ export function Footer() {
         version={environment.VERSION}
         menuItems={[
           {
-            title: "For Development purposes only",
+            title: "For learning purposes only",
             href: "#",
             target: "_self",
           },
