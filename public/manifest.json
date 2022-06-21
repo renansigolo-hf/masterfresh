@@ -1,8 +1,8 @@
 {
-  "id": "scm-australia-react-template",
-  "short_name": "SCM Australia React Template",
-  "name": "SCM Australia React Template",
-  "description": "React Template",
+  "id": "masterfresh",
+  "short_name": "Masterfresh",
+  "name": "MasterFresh",
+  "description": "MasterFresh Application",
   "display": "minimal-ui",
   "theme_color": "#96DC14",
   "background_color": "#ffffff",

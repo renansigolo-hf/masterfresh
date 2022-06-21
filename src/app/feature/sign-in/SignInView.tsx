@@ -57,9 +57,7 @@ export function SignInView() {
       <div style={{ ...style.div }}>
         <img src={hfLogoUrl} height="80px" alt="HelloFresh Logo" />
 
-        <h1 style={{ marginBottom: 0 }}>
-          Welcome to HelloFresh Global Directory
-        </h1>
+        <h1 style={{ marginBottom: 0 }}>Welcome to MasterFresh</h1>
 
         <p style={{ marginTop: 0, color: "#676767" }}>
           Sign in with your Microsoft Azure account

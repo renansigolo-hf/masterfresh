@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "Running pre-commit hook"
 
@@ -47,7 +47,7 @@ echo "Preparing commit for $jiraId"
 # Check if gitleaks it currently enabled
 gitleaksEnabled=$(git config --bool hooks.gitleaks)
 cmd="$GITLEAKS_HOME"
-if [ $gitleaksEnabled == "true" ]; then
+if [ "$gitleaksEnabled" == "true" ]; then
         $cmd
         if [ $? -eq 1 ]; then
 cat <<\EOF

@@ -1,9 +1,9 @@
 import { User } from "@domain/auth/user"
-import { useState } from "react"
+import { ReactNode, useState } from "react"
 import { fakeAuthProvider } from "./auth"
 import { AuthContext } from "./AuthStatus"
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | string | null>(null)
 
   const signin = (newUser: string, callback: VoidFunction) => {

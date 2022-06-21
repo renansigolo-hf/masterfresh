@@ -1,6 +1,11 @@
 import { useApiContext } from "@app/core/api/ApiContext"
 import { Notification } from "@app/core/notification/Notification"
-import { Button, Card, Divider } from "@hellofresh/scm-design-system"
+import {
+  Button,
+  Card,
+  CircularLoader,
+  Divider,
+} from "@hellofresh/scm-design-system"
 import { useEffect, useState } from "react"
 
 type AlbumApi = {
@@ -22,50 +27,47 @@ export function CardsView() {
       .catch((error) => console.error(error))
   }, [api])
 
-  if (!apiResponse.length) return null
+  if (!apiResponse.length) return <CircularLoader />
 
   const cards = apiResponse.slice(0, 10)
 
   return (
     <>
       <h1>Cards Example</h1>
-      <section style={{ maxWidth: "100%" }}>
-        <Notification
-          open={true}
-          title="Showing from cards component"
-          message="Notification is working!!!"
-          severity="success"
-        />
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gridTemplateRows: "repeat(auto, 1fr)",
-            gridColumnGap: "16px",
-            gridRowGap: "16px",
-          }}
-        >
-          {cards.map((item: AlbumApi) => (
-            <Card
-              key={item.id}
-              image={item.thumbnailUrl}
-              onSelect={() => console.log("onSelect")}
-            >
-              <div>{item.title}</div>
+      <section
+        style={{
+          display: "flex",
+          gap: "8px",
+          flexWrap: "wrap",
+          justifyContent: "center",
+        }}
+      >
+        {cards.map((item: AlbumApi) => (
+          <Card
+            key={item.id}
+            image={item.thumbnailUrl}
+            onSelect={() => console.log("onSelect")}
+          >
+            <div>{item.title}</div>
 
-              <Divider />
+            <Divider />
 
-              <Button
-                color="primary"
-                fullWidth
-                label="Click Me!"
-                onClick={() => console.log("onSelect")}
-                variant="primary"
-              />
-            </Card>
-          ))}
-        </div>
+            <Button
+              color="primary"
+              fullWidth
+              label="Click Me!"
+              onClick={() => console.log("onSelect")}
+              variant="primary"
+            />
+          </Card>
+        ))}
       </section>
+      <Notification
+        open={true}
+        title="Showing from cards component"
+        message="Notification is working!!!"
+        severity="success"
+      />
     </>
   )
 }

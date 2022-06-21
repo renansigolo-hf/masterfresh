@@ -13,6 +13,7 @@ export function Layout() {
       display: !user && ("none" as DisplayProps["display"]),
     },
     container: {
+      maxWidth: "100vw",
       minHeight: "calc(100vh - 66px)",
       textAlign: "center" as const,
       paddingTop: user && (appBarHeight as PaddingProps["paddingTop"]),
@@ -23,7 +24,7 @@ export function Layout() {
     <>
       <AppBar style={{ ...style.appBar }} />
 
-      <Container maxWidth="lg" style={{ ...style.container }}>
+      <Container style={{ ...style.container }}>
         <Outlet />
       </Container>
 
