@@ -22,7 +22,7 @@ export function Layout() {
 
   return (
     <>
-      <AppBar style={{ ...style.appBar }} />
+      <AppBar style={{ ...style.appBar }} showMenuIcon={false} />
 
       <Container style={{ ...style.container }}>
         <Outlet />

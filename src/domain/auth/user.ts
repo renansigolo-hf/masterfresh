@@ -1,14 +1,6 @@
-type Profile = {
-  name: string
-  email: string
-}
-
-export type User = {
-  isAuthenticated: boolean
-  idToken: string
+export type MyUser = {
   accessToken: string
-  tokenType: string
-  scope: string | string[] | null
-  expiresAt: Date
-  profile: Profile
+  displayName: string
+  email: string
+  photoURL: string
 }

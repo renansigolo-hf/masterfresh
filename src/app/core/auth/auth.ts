@@ -1,16 +1,31 @@
-/**
- * This represents some generic auth provider API, like Firebase, Auth0 or Azure.
- */
-const fakeAuthProvider = {
+import {
+  GoogleAuthProvider,
+  getAuth,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth"
+
+/** This represents Firebase auth provider */
+export const googleProvider = {
   isAuthenticated: false,
-  signin(callback: VoidFunction) {
-    fakeAuthProvider.isAuthenticated = true
-    setTimeout(callback, 100) // fake async
+  async signin() {
+    const provider = new GoogleAuthProvider()
+
+    const auth = getAuth()
+    return signInWithPopup(auth, provider)
+      .then(({ user }) => user)
+      .catch((error) => {
+        throw Error(`${error.code}: ${error.message}`)
+      })
   },
-  signout(callback: VoidFunction) {
-    fakeAuthProvider.isAuthenticated = false
-    setTimeout(callback, 100)
+  signout() {
+    const auth = getAuth()
+    return signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      })
   },
 }
-
-export { fakeAuthProvider }

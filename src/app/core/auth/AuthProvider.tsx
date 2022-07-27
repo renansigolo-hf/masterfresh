@@ -1,23 +1,19 @@
-import { User } from "@domain/auth/user"
+import { getAuth, User } from "firebase/auth"
 import { ReactNode, useState } from "react"
-import { fakeAuthProvider } from "./auth"
+import { googleProvider } from "./auth"
 import { AuthContext } from "./AuthStatus"
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | string | null>(null)
+  getAuth()
+  const [user, setUser] = useState<User | null>(null)
 
-  const signin = (newUser: string, callback: VoidFunction) => {
-    return fakeAuthProvider.signin(() => {
-      setUser(newUser)
-      callback()
-    })
+  const signin = async () => {
+    const user = await googleProvider.signin()
+    setUser(user)
   }
 
-  const signout = (callback: VoidFunction) => {
-    return fakeAuthProvider.signout(() => {
-      setUser(null)
-      callback()
-    })
+  const signout = async () => {
+    return await googleProvider.signout()
   }
 
   const value = { user, signin, signout }

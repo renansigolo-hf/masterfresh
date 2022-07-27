@@ -4,11 +4,6 @@ import { FlexboxProps } from "@mui/system"
 import hfLogoUrl from "assets/hf-logo.svg"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 
-type User = {
-  name: string
-  email: string
-}
-
 export function SignInView() {
   const navigate = useNavigate()
   const location = useLocation()
@@ -17,13 +12,9 @@ export function SignInView() {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore: unkown object type
   const from = location.state?.from?.pathname || "/"
-  const fakeUser = {
-    name: "Renan Sigolo",
-    email: "renan.sigolo@hellofresh.com.au",
-  }
 
-  function handleSubmit({ name }: User) {
-    auth.signin(name, () => {
+  function handleSubmit() {
+    auth.signin().then(() => {
       // Send them back to the page they tried to visit when they were
       // redirected to the login page. Use { replace: true } so we don't create
       // another entry in the history stack for the login page.  This means that
@@ -66,9 +57,9 @@ export function SignInView() {
         <Button
           fullWidth
           color="primary"
-          label="Sign In with Azure"
+          label="Sign In"
           variant="primary"
-          onClick={() => handleSubmit(fakeUser)}
+          onClick={() => handleSubmit()}
         >
           <Link to="/signin" />
         </Button>
