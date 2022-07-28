@@ -1,9 +1,8 @@
-import { initializeApp } from "firebase/app"
+import { getApp, initializeApp } from "firebase/app"
 import { getAuth } from "firebase/auth"
 
+/** Initialize Firebase App */
 export const initFirebase = () => {
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
   const firebaseConfig = {
     apiKey: "AIzaSyD1fzECtlcdS5lNOowKOY6oQ9LY9jz8GJs",
     authDomain: "master-fresh.firebaseapp.com",
@@ -14,11 +13,15 @@ export const initFirebase = () => {
     measurementId: "G-228BYZNK4Y",
   }
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig)
-  console.log("🚀 ~ file: App.tsx ~ line 23 ~ initFirebase ~ app", app)
-
-  // Initialize Firebase Authentication and get a reference to the service
-  const auth = getAuth(app)
-  console.log("🚀 ~ file: firebase.ts ~ line 23 ~ initFirebase ~ auth", auth)
+  try {
+    return getApp()
+  } catch {
+    return initializeApp(firebaseConfig)
+  }
 }
+
+// Retrieve the firebase app instance to a variable
+const firebaseApp = initFirebase()
+
+// Initialize Firebase Authentication and get a reference to the service
+export const auth = getAuth(firebaseApp)

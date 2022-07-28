@@ -1,4 +1,5 @@
 import { useAuth } from "@app/core/auth/AuthStatus"
+import { Menu } from "@app/core/menu/Menu"
 import { AppBar, Container } from "@hellofresh/scm-design-system"
 import { DisplayProps, PaddingProps } from "@mui/system"
 import { Outlet } from "react-router-dom"
@@ -22,7 +23,11 @@ export function Layout() {
 
   return (
     <>
-      <AppBar style={{ ...style.appBar }} showMenuIcon={false} />
+      <AppBar
+        style={{ ...style.appBar }}
+        showMenuIcon={false}
+        Tabs={<Menu />}
+      />
 
       <Container style={{ ...style.container }}>
         <Outlet />

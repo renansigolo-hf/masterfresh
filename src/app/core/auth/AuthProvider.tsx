@@ -1,11 +1,11 @@
-import { getAuth, User } from "firebase/auth"
+import { User } from "firebase/auth"
 import { ReactNode, useState } from "react"
+import { auth } from "../libs/firebase"
 import { googleProvider } from "./auth"
 import { AuthContext } from "./AuthStatus"
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  getAuth()
-  const [user, setUser] = useState<User | null>(null)
+  const [user, setUser] = useState<User | null>(auth.currentUser || null)
 
   const signin = async () => {
     const user = await googleProvider.signin()

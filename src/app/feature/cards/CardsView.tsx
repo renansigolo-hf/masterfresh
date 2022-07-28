@@ -7,6 +7,7 @@ import {
   Divider,
 } from "@hellofresh/scm-design-system"
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 
 type AlbumApi = {
   albumId: number
@@ -34,6 +35,7 @@ export function CardsView() {
   return (
     <>
       <h1>Cards Example</h1>
+      <Link to="/home">Go to home</Link>
       <section
         style={{
           display: "flex",
