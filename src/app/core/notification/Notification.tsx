@@ -29,7 +29,6 @@ export function Notification({
       id={id}
       open={isOpen}
       message={title}
-      subText={message}
       icon={icon}
       delay={delay}
       onClose={() => {

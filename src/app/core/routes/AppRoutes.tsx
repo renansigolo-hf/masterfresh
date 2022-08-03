@@ -1,14 +1,20 @@
-import { CardsView } from "@app/feature/cards/CardsView"
 import { HomeView } from "@app/feature/home/HomeView"
+import { HowItWorksView } from "@app/feature/how-it-works/HowItWorksView"
+import { LeaderboardView } from "@app/feature/leaderboard/LeaderboardView"
 import { NotFoundView } from "@app/feature/not-found/NotFoundView"
+import { RecipeUploadView } from "@app/feature/recipe-upload/RecipeUploadView"
 import { SignInView } from "@app/feature/sign-in/SignInView"
+import { VoteView } from "@app/feature/vote/VoteView"
 import { Layout } from "@app/layout/Layout"
 import { Route, Routes } from "react-router-dom"
 import { AuthRequired } from "../auth/AuthRequired"
 
 const authenticatedPages = {
-  "/home": <HomeView />,
-  "/cards": <CardsView />,
+  "/": <HomeView />,
+  "/leaderboard": <LeaderboardView />,
+  "/how-it-works": <HowItWorksView />,
+  "/recipe-upload": <RecipeUploadView />,
+  "/vote": <VoteView />,
 }
 
 export const AppRoutes = () => {

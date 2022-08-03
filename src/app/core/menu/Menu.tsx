@@ -2,8 +2,11 @@ import { Tabs } from "@hellofresh/scm-design-system"
 import { useLocation, useNavigate } from "react-router-dom"
 
 export const menuItems = [
-  { id: "/home", label: "Home" },
-  { id: "/cards", label: "Cards" },
+  { id: "/", label: "Home" },
+  { id: "/vote", label: "Vote" },
+  { id: "/leaderboard", label: "Leaderboard" },
+  { id: "/how-it-works", label: "How It Works" },
+  { id: "/recipe-upload", label: "Recipe Upload" },
 ]
 
 export const Menu = () => {

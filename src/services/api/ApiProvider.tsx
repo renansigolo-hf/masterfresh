@@ -6,14 +6,14 @@ import { requests } from "./api-requests"
 import { apiStatusCodes } from "./api-status-codes"
 
 export function ApiProvider({ children }: { children: ReactNode }) {
-  const { BASE_URL } = environment
+  const { SERVER_URL } = environment
   const [error, setError] = useState<ApiError | null>(null)
 
   const apiClient: Api = {
     apiRequest: async (configName, args) => {
       if (!requests[configName]) throw new Error("No request name defined")
 
-      const client = axios.create({ baseURL: BASE_URL, ...args })
+      const client = axios.create({ baseURL: SERVER_URL, ...args })
 
       // Handle error status that are not 200
       // Add a response interceptor

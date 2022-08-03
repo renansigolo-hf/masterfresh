@@ -10,6 +10,7 @@ import { AuthProvider } from "./app/core/auth/AuthProvider"
 import { ApiProvider } from "./services/api/ApiProvider"
 
 const customTheme = createTheme(SCMTheme as Theme)
+
 initFirebase()
 
 render(
