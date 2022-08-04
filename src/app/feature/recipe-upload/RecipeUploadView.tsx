@@ -1,29 +1,14 @@
-import { Button, Typography } from "@hellofresh/scm-design-system"
-import { PhotoCamera } from "@mui/icons-material"
+import {
+  Button,
+  Card,
+  Divider,
+  Typography,
+} from "@hellofresh/scm-design-system"
 import { Stack, TextField } from "@mui/material"
 import { ChangeEvent, useState } from "react"
 
 export const RecipeUploadView = () => {
   const [file, setFile] = useState("")
-  const UploadBtn = () => {
-    return (
-      <>
-        <PhotoCamera sx={{ marginRight: 2 }} />
-        Load Image
-        <input
-          hidden
-          type="file"
-          name="recipeUpload"
-          id="recipeUpload"
-          accept="image/*,.heic"
-          onChange={(event: ChangeEvent<any>) => {
-            const file = URL.createObjectURL(event.target.files[0])
-            setFile(file)
-          }}
-        />
-      </>
-    )
-  }
 
   return (
     <>
@@ -31,10 +16,18 @@ export const RecipeUploadView = () => {
         Recipe Upload
       </Typography>
       <Stack spacing={2} alignItems="center" minWidth={"100%"}>
-        {file ? (
-          <img src={file} alt="Recipe Upload" style={{ maxWidth: "60%" }} />
-        ) : (
-          <>
+        <>
+          <Card image={file || "https://via.placeholder.com/150"}>
+            <input
+              type="file"
+              name="recipeUpload"
+              id="recipeUpload"
+              accept="image/*"
+              onChange={(event: ChangeEvent<any>) => {
+                const file = URL.createObjectURL(event.target.files[0])
+                setFile(file)
+              }}
+            />
             <TextField
               id="recipeName"
               label="Recipe Name"
@@ -47,24 +40,19 @@ export const RecipeUploadView = () => {
               variant="outlined"
               fullWidth
             />
-            <Button
-              fullWidth
-              color="primary"
-              variant="primary"
-              children={<UploadBtn />}
-            />
-            <Button
-              fullWidth
-              color="primary"
-              variant="primary"
-              label="Submit Recipe"
-            />
-          </>
-        )}
 
-        {file && (
-          <Button color="primary" label="Submit Recipe" variant="primary" />
-        )}
+            {file && (
+              <>
+                <Divider />
+                <Button
+                  color="primary"
+                  label="Submit Recipe"
+                  variant="primary"
+                />
+              </>
+            )}
+          </Card>
+        </>
       </Stack>
     </>
   )

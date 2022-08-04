@@ -42,7 +42,6 @@ export const LeaderboardView = () => {
                 recipe.imageUrl ||
                 "https://cdn.shoplightspeed.com/shops/620718/themes/6715/assets/placeholder-660x660.png?2020070621575920201219173038"
               }
-              onSelect={() => null}
               style={{ width: "100%", height: "100%" }}
             >
               <span>

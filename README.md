@@ -1,6 +1,6 @@
-# React Template
+# Masterfresh App
 
-A project template for creating applications with React
+A simple app for learning react.
 
 ## Pre-requesites
 

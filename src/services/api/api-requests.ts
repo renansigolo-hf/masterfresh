@@ -5,8 +5,4 @@ export const requests: { [key: string]: AxiosRequestConfig } = {
     url: `/recipes`,
     method: "GET",
   },
-  getCardPhotos: {
-    url: `/photos`,
-    method: "GET",
-  },
 }

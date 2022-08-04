@@ -46,6 +46,7 @@ export const VoteView = () => {
         "https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_1200/hellofresh_s3/image/roast-veggie-garlic-crouton-salad-7fd44915.jpg",
     },
   ]
+
   return (
     <>
       <h1>Vote</h1>
@@ -53,12 +54,8 @@ export const VoteView = () => {
 
       <Grid container direction="row" spacing={2}>
         {recipes.map((recipe) => (
-          <Grid item xs={12} md={6}>
-            <Card
-              style={{ width: "100%" }}
-              key={recipe.id}
-              onClick={() => setIsOpen(true)}
-            >
+          <Grid item xs={12} md={6} key={recipe.id}>
+            <Card style={{ width: "100%" }} onClick={() => setIsOpen(true)}>
               <div
                 style={{
                   display: "flex",
