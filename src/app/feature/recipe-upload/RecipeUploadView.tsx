@@ -1,3 +1,4 @@
+import { currentMonth } from "@app/core/libs/dates"
 import {
   Button,
   Card,
@@ -14,6 +15,9 @@ export const RecipeUploadView = () => {
     <>
       <Typography color="initial" margin={4} variant="h4">
         Recipe Upload
+      </Typography>
+      <Typography color="initial" margin={4} variant="h5">
+        Upload your recipe for the month of {currentMonth}
       </Typography>
       <Stack spacing={2} alignItems="center" minWidth={"100%"}>
         <>

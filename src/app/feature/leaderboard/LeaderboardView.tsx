@@ -1,20 +1,9 @@
 import { useApiContext } from "@app/core/api/ApiContext"
+import { RecipeApi } from "@domain/api/recipe"
 import { Avatar, Card, Divider, Grid } from "@hellofresh/scm-design-system"
 import { useEffect, useState } from "react"
 
-type RecipeApi = {
-  id: string
-  title: string
-  author: string
-  votes: number
-  imageUrl: string
-  date: string
-  url: string
-  userPicture?: string
-}
-
 export const LeaderboardView = () => {
-  // const currentDate = Timestamp.now()
   const api = useApiContext()
   const [apiResponse, setApiResponse] = useState<RecipeApi[]>([])
 
@@ -38,11 +27,14 @@ export const LeaderboardView = () => {
           <Grid item xs={12} sm={6} md={3} p={1} key={recipe.id}>
             <Card
               image={
-                recipe.userPicture ||
+                recipe.pictureUrl ||
                 recipe.imageUrl ||
                 "https://cdn.shoplightspeed.com/shops/620718/themes/6715/assets/placeholder-660x660.png?2020070621575920201219173038"
               }
-              style={{ width: "100%", height: "100%" }}
+              style={{
+                width: "100%",
+                height: "100%",
+              }}
             >
               <span>
                 <strong>{recipe.date}</strong>

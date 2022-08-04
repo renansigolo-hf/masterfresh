@@ -1,51 +1,27 @@
+import { useApiContext } from "@app/core/api/ApiContext"
+import { currentMonth } from "@app/core/libs/dates"
+import { RecipeApi } from "@domain/api/recipe"
 import {
   Avatar,
+  Box,
   Button,
   Card,
   Grid,
   Modal,
 } from "@hellofresh/scm-design-system"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export const VoteView = () => {
+  const api = useApiContext()
+  const [apiResponse, setApiResponse] = useState<RecipeApi[]>([])
   const [isOpen, setIsOpen] = useState(false)
 
-  const currentMonth = new Intl.DateTimeFormat("en", {
-    month: "long",
-  }).format(new Date())
-
-  const recipes = [
-    {
-      id: 0,
-      title: "Roast Veggie & Garlic Crouton Salad",
-      author: "Renan Sigolo",
-      link: "https://www.hellofresh.com.au/recipes/roast-veggie-garlic-crouton-salad-61b96df10db0c84a862bacc1",
-      originalPicture:
-        "https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_1200/hellofresh_s3/image/roast-veggie-garlic-crouton-salad-7fd44915.jpg",
-      userPicture:
-        "https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_1200/hellofresh_s3/image/roast-veggie-garlic-crouton-salad-7fd44915.jpg",
-    },
-    {
-      id: 1,
-      title: "Roast Veggie & Garlic Crouton Salad",
-      author: "Renan Sigolo",
-      link: "https://www.hellofresh.com.au/recipes/roast-veggie-garlic-crouton-salad-61b96df10db0c84a862bacc1",
-      originalPicture:
-        "https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_1200/hellofresh_s3/image/roast-veggie-garlic-crouton-salad-7fd44915.jpg",
-      userPicture:
-        "https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_1200/hellofresh_s3/image/roast-veggie-garlic-crouton-salad-7fd44915.jpg",
-    },
-    {
-      id: 2,
-      title: "Roast Veggie & Garlic Crouton Salad",
-      author: "Renan Sigolo",
-      link: "https://www.hellofresh.com.au/recipes/roast-veggie-garlic-crouton-salad-61b96df10db0c84a862bacc1",
-      originalPicture:
-        "https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_1200/hellofresh_s3/image/roast-veggie-garlic-crouton-salad-7fd44915.jpg",
-      userPicture:
-        "https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_1200/hellofresh_s3/image/roast-veggie-garlic-crouton-salad-7fd44915.jpg",
-    },
-  ]
+  useEffect(() => {
+    api
+      ?.apiRequest<RecipeApi[]>(`getRecipes`)
+      .then((res) => setApiResponse(res.data))
+      .catch((error) => console.error(error))
+  }, [api])
 
   return (
     <>
@@ -53,41 +29,84 @@ export const VoteView = () => {
       <p>Vote on your favourite recipe for the month of {currentMonth}</p>
 
       <Grid container direction="row" spacing={2}>
-        {recipes.map((recipe) => (
+        {apiResponse.map((recipe) => (
           <Grid item xs={12} md={6} key={recipe.id}>
-            <Card style={{ width: "100%" }} onClick={() => setIsOpen(true)}>
-              <div
-                style={{
+            <Card
+              style={{
+                width: "100%",
+                height: "100%",
+              }}
+              onClick={() => setIsOpen(true)}
+            >
+              <Box
+                sx={{
                   display: "flex",
-                  maxWidth: "100%",
+                  flexDirection: "column",
                   justifyContent: "space-between",
+                  height: "100%",
                 }}
               >
-                <img
-                  src={recipe.originalPicture}
-                  style={{ maxWidth: "49%" }}
-                  alt="Recipe"
-                />
-                <img
-                  src={recipe.userPicture}
-                  style={{ maxWidth: "49%" }}
-                  alt="Recipe"
-                />
-              </div>
-
-              <div
-                style={{ display: "flex", gap: "8px", marginBottom: "16px" }}
-              >
-                <Avatar image="" size="large" />
-                <div style={{ textAlign: "left" }}>
-                  <strong>{recipe.author}</strong>
-                  <br />
-                  <a href={recipe.link} target="_blank" rel="noreferrer">
-                    {recipe.title}
-                  </a>
+                <div
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "400px",
+                    height: "100%",
+                    display: "grid",
+                    gridTemplateColumns: "repeat(2, 1fr)",
+                    gridTemplateRows: "1fr",
+                    gridColumnGap: "4px",
+                  }}
+                >
+                  <img
+                    src={recipe.imageUrl}
+                    style={{
+                      borderRadius: "4px",
+                      objectFit: "cover",
+                      aspectRatio: "3 / 2",
+                      maxWidth: "100%",
+                    }}
+                    alt="HelloFresh Recipe"
+                  />
+                  <img
+                    src={
+                      recipe.pictureUrl ||
+                      "https://cdn.shoplightspeed.com/shops/620718/themes/6715/assets/placeholder-660x660.png?2020070621575920201219173038"
+                    }
+                    style={{
+                      borderRadius: "4px",
+                      objectFit: "cover",
+                      aspectRatio: "3 / 2",
+                      maxWidth: "100%",
+                    }}
+                    alt="User Recipe"
+                  />
                 </div>
-                <div>
-                  {/* <SocialButtons
+
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "8px",
+                    marginBottom: "16px",
+                    flexDirection: "column",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "8px",
+                      marginBottom: "16px",
+                    }}
+                  >
+                    <Avatar image="" size="large" />
+                    <div style={{ textAlign: "left" }}>
+                      <strong>{recipe.author}</strong>
+                      <br />
+                      <a href={recipe.url} target="_blank" rel="noreferrer">
+                        {recipe.title}
+                      </a>
+                    </div>
+                    <div>
+                      {/* <SocialButtons
                     count={1}
                     onClick={() => null}
                     // position="horizontal"
@@ -95,16 +114,17 @@ export const VoteView = () => {
                     tabIndex={1}
                     disabled={true}
                   /> */}
+                    </div>
+                  </div>
+                  <Button
+                    color="primary"
+                    fullWidth
+                    label="Vote for this recipe"
+                    onClick={() => null}
+                    variant="primary"
+                  />
                 </div>
-              </div>
-
-              <Button
-                color="primary"
-                fullWidth
-                label="Vote for this recipe"
-                onClick={() => null}
-                variant="primary"
-              />
+              </Box>
             </Card>
           </Grid>
         ))}
