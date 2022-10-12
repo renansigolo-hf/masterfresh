@@ -1,18 +1,17 @@
 import { useApiContext } from "@app/core/api/ApiContext"
+import { Loading } from "@app/core/loading/Loading"
 import { RecipeApi } from "@domain/api/recipe"
 import { Avatar, Card, Divider, Grid } from "@hellofresh/scm-design-system"
-import { useEffect, useState } from "react"
+import { useQuery } from "@tanstack/react-query"
 
 export const LeaderboardView = () => {
   const api = useApiContext()
-  const [apiResponse, setApiResponse] = useState<RecipeApi[]>([])
+  const getLeaderboard = () =>
+    api?.apiRequest<RecipeApi[]>(`getRecipes`).then(({ data }) => data)
 
-  useEffect(() => {
-    api
-      ?.apiRequest<RecipeApi[]>(`getRecipes`)
-      .then((res) => setApiResponse(res.data))
-      .catch((error) => console.error(error))
-  }, [api])
+  const { data, isLoading } = useQuery(["leaderboard"], getLeaderboard)
+
+  if (isLoading) return <Loading />
 
   return (
     <>
@@ -23,7 +22,7 @@ export const LeaderboardView = () => {
         <Grid item xs={12} p={1}>
           <h1 style={{ textAlign: "left" }}>2022</h1>
         </Grid>
-        {apiResponse.map((recipe) => (
+        {data?.map((recipe) => (
           <Grid item xs={12} sm={6} md={3} p={1} key={recipe.id}>
             <Card
               image={
