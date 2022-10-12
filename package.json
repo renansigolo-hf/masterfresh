@@ -33,7 +33,7 @@
   "dependencies": {
     "@emotion/react": "11.10.4",
     "@emotion/styled": "11.10.4",
-    "@hellofresh/scm-design-system": "3.2.19",
+    "@hellofresh/scm-design-system": "3.2.40",
     "@mui/icons-material": "5.10.9",
     "@mui/lab": "5.0.0-alpha.103",
     "@mui/material": "5.10.9",
