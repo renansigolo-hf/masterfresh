@@ -28,7 +28,8 @@ export function Notification({
     <SnackbarNotification
       id={id}
       open={isOpen}
-      message={title}
+      subText={title}
+      message={message}
       icon={icon}
       delay={delay}
       onClose={() => {

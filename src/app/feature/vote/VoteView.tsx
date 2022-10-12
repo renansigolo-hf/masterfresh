@@ -1,5 +1,6 @@
 import { useApiContext } from "@app/core/api/ApiContext"
 import { currentMonth } from "@app/core/libs/dates"
+import { Loading } from "@app/core/loading/Loading"
 import { RecipeApi } from "@domain/api/recipe"
 import {
   Avatar,
@@ -9,27 +10,25 @@ import {
   Grid,
   Modal,
 } from "@hellofresh/scm-design-system"
-import { useEffect, useState } from "react"
+import { useQuery } from "@tanstack/react-query"
+import { useState } from "react"
 
 export const VoteView = () => {
   const api = useApiContext()
-  const [apiResponse, setApiResponse] = useState<RecipeApi[]>([])
   const [isOpen, setIsOpen] = useState(false)
 
-  useEffect(() => {
-    api
-      ?.apiRequest<RecipeApi[]>(`getRecipes`)
-      .then((res) => setApiResponse(res.data))
-      .catch((error) => console.error(error))
-  }, [api])
+  const getRecipes = () =>
+    api?.apiRequest<RecipeApi[]>(`getRecipes`).then(({ data }) => data)
+  const { data, isLoading } = useQuery(["recipes"], getRecipes)
 
+  if (isLoading) return <Loading />
   return (
     <>
       <h1>Vote</h1>
       <p>Vote on your favourite recipe for the month of {currentMonth}</p>
 
       <Grid container direction="row" spacing={2}>
-        {apiResponse.map((recipe) => (
+        {data?.map((recipe) => (
           <Grid item xs={12} md={6} key={recipe.id}>
             <Card
               style={{
