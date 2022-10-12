@@ -1,4 +1,4 @@
 /** @type {import('prettier').Config} */
-{
-  "semi": false
+module.exports = {
+  semi: false,
 }
